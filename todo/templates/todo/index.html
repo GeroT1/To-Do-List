@@ -3,30 +3,25 @@
 {% block header %}
     <h1>{% block title%}To-dos{% endblock %}</h1>
     {% if g.user %}
-        <a class="action" href="{{ url_for('todo.create') }}">Nuevo</a>
+        <a class="btn-new" href="{{ url_for('todo.create') }}">New To-Do</a>
     {% endif %}
 {% endblock %}
 
 {% block content %}
-    <ul>
+    <div class="todo-list">
         {% for todo in ToDos %}
-            <li class="todo">
-                <div>
-                    <h1>
-                        {% if todo['completed'] == 1 %}
-                            <strike>{{ todo['description'] }}</strike>
-                        {% else %}
-                            {{ todo['description'] }}
-                        {% endif %}
-
-                    </h1>
-                    <div class="about">{{ todo['created_at'].strftime('%Y-%m-%d') }}</div>
-                    <a class="action" href="{{ url_for('todo.update', id=todo['id']) }}">Editar</a>    
+            <div class="todo-item">
+                <div class="todo-content">
+                    <input type="checkbox" id="todo-{{ todo['id'] }}" 
+                           {% if todo['completed'] == 1 %}checked{% endif %} 
+                           onclick="window.location.href='{{ url_for('todo.toggle', id=todo['id']) }}'">
+                    <p class="todo-text">{{ todo['description'] }}</p>
                 </div>
-            </li>
-        {% if not loop.last %}
-            <hr>
-        {% endif %}
+                <div class="actions">
+                    <div class="about">{{ todo['created_at'].strftime('%Y-%m-%d') }}</div>
+                    <a class="btn btn-edit" href="{{ url_for('todo.update', id=todo['id']) }}">Editar</a>
+                </div>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
 {% endblock %}

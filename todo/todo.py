@@ -93,3 +93,19 @@ def delete(id):
     )
     db.commit()
     return redirect(url_for("todo.index"))
+
+@bp.route('/<int:id>/toggle', methods=('GET', 'POST'))
+@login_required
+def toggle(id):
+    db, c = get_db()
+    todo = get_todo(id)
+    
+    new_status = 0 if todo['completed'] == 1 else 1
+    
+    c.execute(
+        'UPDATE todo SET completed = %s'
+        ' WHERE id = %s',
+        (new_status, id)
+    )
+    db.commit()
+    return redirect(url_for('todo.index'))

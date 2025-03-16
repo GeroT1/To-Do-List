@@ -8,8 +8,6 @@
     <form method="POST">
         <label for="description">Description</label>
         <input name="description" id="description" value="{{ request.form['description'] or todo['description']}}" required>
-        <label for="completed">Completed</label>
-        <input type="checkbox" name="completed" id="completed" {% if todo['completed'] == 1 %}checked{% endif %}>
         <input type="submit" value="Save">
     </form>
     <form action="{{ url_for('todo.delete', id=todo['id']) }}" method="POST">
