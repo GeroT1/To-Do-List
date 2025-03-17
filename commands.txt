@@ -1,0 +1,11 @@
+set FLASK_APP=todo
+set FLASK_DEBUG=1
+set FLASK_DATABASE_HOST=localhost
+set FLASK_DATABASE_USER=TestUser
+set FLASK_DATABASE_PASSWORD=123456
+set FLASK_DATABASE=test
+flask run
+
+Use before flask run
+
+flask init_db
